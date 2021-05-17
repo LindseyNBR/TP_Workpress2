@@ -11,7 +11,7 @@
   args:
     creates: /root/.my.cnf
     register: mysql_new_root_pass
-    - name: Remove anonymous users
+  - name: Remove anonymous users
     mysql_user:
       name: ""
       state: absent
