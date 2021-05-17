@@ -6,7 +6,7 @@
   tasks:
 # PHP
     - name: Add the ondrej PHP PPA
-      apt-repository:
+      apt_repository:
         repo: 'ppa.ondrej/php'
       ignore_errors: true
 
