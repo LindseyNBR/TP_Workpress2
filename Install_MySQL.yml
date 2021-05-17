@@ -3,7 +3,7 @@
   package:
     name: "{{ item }}"
     state: present
-   loop:
+  loop:
     - mysql-server
     - python3-mysqldb
 - name: Generate new root password
