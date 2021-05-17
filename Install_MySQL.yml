@@ -1,3 +1,4 @@
+---
 # MySQL
   - name: Install MySQL
     package:
@@ -13,31 +14,31 @@
     register: mysql_new_root_pass
   - name: Remove anonymous users
     mysql_user:
-     name: ""
-     state: absent
+      name: ""
+      state: absent
     when: mysql_new_root_pass.changed
   - name: Remove test database
     mysql_db:
-     name: test
-     state: absent
+      name: test
+      state: absent
     when: mysql_new_root_pass.changed
   - name: Output new root password
     debug:
-     msg: "New root password is {{mysql_new_root_pass.stdout}}"
+      msg: "New root password is {{mysql_new_root_pass.stdout}}"
     when: mysql_new_root_pass.changed
   - name: Update root password
     mysql_user:
-     name: root
-     host: "{{ item }}"
-     password: "{{ mysql_new_root_pass.stdout }}"
+      name: root
+      host: "{{ item }}"
+      password: "{{ mysql_new_root_pass.stdout }}"
     loop:
-     - "{{ ansible_hostname }}"
-     - 127.0.0.1
-     - ::1
-     - localhost
+      - "{{ ansible_hostname }}"
+      - 127.0.0.1
+      - ::1
+      - localhost
     when: mysql_new_root_pass.changed
   - name: Create my.cnf
     template:
-     src: templates/mysql/my.cnf.j2
-     dest: /root/.my.cnf
+      src: templates/mysql/my.cnf.j2
+      dest: /root/.my.cnf
     when: mysql_new_root_pass.changed
