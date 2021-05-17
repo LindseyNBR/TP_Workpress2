@@ -75,7 +75,6 @@
         dest: /root/.my.cnf
       when: mysql_new_root_pass.changed
 
-
 #NGINX
     - name: Install nginx
       package:
