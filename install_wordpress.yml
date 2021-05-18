@@ -144,7 +144,7 @@
 
     - name: Copy Wordpress DB
       copy:
-        src: TP_Workpress2/templates/wordpress/wp-database.sql.j2
+        src: templates/wordpress/wp-database.sql.j2
         dest: /tmp/wp-database.sql
       when: db_exist.rc > 0
 
