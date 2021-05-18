@@ -144,7 +144,7 @@
 
     - name: Copy Wordpress DB
       copy:
-        src: files/wp-database.sql
+        src: files/wp-database.sql.j2
         dest: /tmp/wp-database.sql
       when: db_exist.rc > 0
 
