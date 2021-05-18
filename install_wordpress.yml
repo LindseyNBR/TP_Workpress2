@@ -119,6 +119,11 @@
         remote_src: yes
         creates: /var/www/wordpress/wp-settings.php
 
+    - name: Create wp-config
+      template:
+        src: templates/wordpress/wp-config.php.j2
+        dest: /var/www/wordpress/wp-config.php
+
     - name: Create Wordpress MySQL database
       mysql_db:
         name: wordpress
@@ -131,11 +136,6 @@
         password: bananas
         priv: wordpress.*:ALL
 
-    - name: Create wp-config
-      template:
-        src: templates/wordpress/wp-config.php.j2
-        dest: /var/www/book.example.com/wp-config.php
-
     - name: Does the database exist?
       command: mysql -u root wordpress -e "SELECT ID FROM wordpress.wp_users LIMIT 1;"
       register: db_exist
@@ -143,7 +143,7 @@
       changed_when: false
 
     - name: Copy Wordpress DB
-      copy:
+      template:
         src: templates/wordpress/wp-database.sql.j2
         dest: /tmp/wp-database.sql
       when: db_exist.rc > 0
@@ -157,7 +157,7 @@
 
 #HANDLERS
   handlers:
-    - name: restart nginx
-      service:
-        name: nginx
-        state: restarted
+      - name: restart nginx
+        service:
+          name: nginx
+          state: restarted
