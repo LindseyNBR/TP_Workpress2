@@ -26,7 +26,7 @@
 
 - name: Create wp-config
   template:
-    src: roles/templates/wp-config.php.j2
+    src: templates/wp-config.php.j2
     dest: /var/www/wordpress/wp-config.php
 
 - name: Create Wordpress MySQL database
@@ -49,7 +49,7 @@
 
 - name: Copy Wordpress DB
   template:
-    src: roles/templates/wp-database.sql.j2
+    src: templates/wp-database.sql.j2
     dest: /tmp/wp-database.sql
   when: db_exist.rc > 0
 
